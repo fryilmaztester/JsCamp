@@ -5,3 +5,5 @@ export default class Employee extends User{
         super(id, firstName, lastName, city,age); 
         this.salary  = salary;
     }
+
+}
