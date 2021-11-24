@@ -19,3 +19,11 @@ userService.add(user2.firstName);
 console.log(userService.getById(2));
 console.log(userService.list());
 
+
+console.log("--------------------------");
+
+userService.load();
+console.log(userService.customers);
+console.log(userService.employees);
+console.log(userService.errors);
+
