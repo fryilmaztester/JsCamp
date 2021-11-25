@@ -42,6 +42,11 @@ export default class UserService{
                 this.errors.push(new DataError(`Validation Problem on ${field} is required`, user))
             }
         }
+
+        if (Number.isNaN(Number.parseInt(user.age))) {
+            isError = true;
+            this.errors.push(new DataError(`Validation Problem on ${user.age} is not a number`, user))
+        }
         return isError; 
     }
 
@@ -51,6 +56,18 @@ export default class UserService{
 
     add(user){
 
+        switch (user.type ) {
+            case "customer":
+                this.customers.push(user)
+                break;
+                case "employee":
+                    this.employees.push(user)
+                    break;    
+        
+            default:
+                this.errors.push(new DataError("Wrong user type ", user))
+                break;
+        }
       //  this.users.push(user);
       //  console.log("Kullanıcı Eklendi.... " + user);
         this.loggerService.log(user); 
@@ -65,6 +82,19 @@ export default class UserService{
     getById(id){
       //  return this.users.find(u=>u.id === id);
     //    console.log("Kullanıcının ıd si alındı: " + id);
+    }
+
+    getCustomerSorted(){
+        this.customers.sort((customer1,customer2)=>{
+            if(customer1.firstName<customer2.firstName){
+                return 1;
+            }else if(customer1.firstName === customer2.firstName){
+                return 0;
+            }else {
+                return -1;
+            }
+
+        })
     }
 
 }
